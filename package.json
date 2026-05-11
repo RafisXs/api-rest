@@ -1,0 +1,31 @@
+{
+  "name": "api-rest",
+  "version": "1.0.0",
+  "description": "Esta é uma API REST completa e segura desenvolvida em Node.js, focada no gerenciamento de usuários e publicações de comentários.\r O sistema conta com autenticação por Tokens (JWT), criptografia de senhas, validação de dados e relacionamento entre coleções no banco de dados.\r Este projeto foi construído utilizando as seguintes ferramentas e bibliotecas:\r  - Node.js & Express.js: Base da aplicação e gerenciamento de rotas.\r  - MongoDB & Mongoose: Banco de dados NoSQL e modelagem de dados (Schemas, Models, Hooks de pre-save).\r  - Bcrypt.js: Criptografia unidirecional de senhas para segurança do usuário.\r  - JSON Web Token (JWT): Geração e verificação de tokens para sessões de usuários.\r  - Dotenv: Gerenciamento de variáveis de ambiente.\r  - Git: Versionamento de código.\r  - Talend API Tester: Ferramentas utilizadas para teste e validação das rotas durante o desenvolvimento.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "body": "^5.1.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongodb": "^7.2.0",
+    "mongoose": "^9.6.2",
+    "parser": "^0.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rafael-be/API-rest.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Rafael-be/API-rest/issues"
+  },
+  "homepage": "https://github.com/Rafael-be/API-rest#readme"
+}
