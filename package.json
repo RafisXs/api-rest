@@ -22,10 +22,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rafael-be/API-rest.git"
+    "url": "https://github.com/RafisXs/api-rest.git"
   },
   "bugs": {
-    "url": "https://github.com/Rafael-be/API-rest/issues"
+    "url": "https://github.com/RafisXs/api-rest/issues"
   },
-  "homepage": "https://github.com/Rafael-be/API-rest#readme"
+  "homepage": "https://github.com/RafisXs/api-rest#readme"
 }

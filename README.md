@@ -42,12 +42,7 @@ Passo a Passo de como Rodar a Aplicação:
  - Git
  - Uma conta no MongoDB e MongoCompass
 2. Clonando o Repositório e Versionamento
-Este projeto utiliza Git para versionamento de código. Para baixar e inicializar:
-Clone o repositório com o bash:
-git clone https://github.com/Rafael-be/API-rest
-
-Entre na pasta do projeto com o bash:
-cd API-rest
+Este projeto utiliza Git para versionamento de código. Para baixar e inicializar
 
 3. Instalando as Dependências
  - Execute o comando abaixo para baixar as pastas node_modules:
