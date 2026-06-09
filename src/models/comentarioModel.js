@@ -4,6 +4,14 @@ const mongoose = require('mongoose');
   Schema que define a estrutura de um comentário no banco de dados.
   Cada comentário é vinculado a um usuário pelo campo autor (referência por ObjectId).
 */
+/**
+ * Schema de comentarios.
+ *
+ * Define a estrutura de cada comentario e vincula o registro ao usuario autor
+ * por meio do campo autor, que referencia documentos do model User.
+ *
+ * @type {mongoose.Schema}
+ */
 const registroSchema = new mongoose.Schema(
   {
     titulo: {
@@ -33,4 +41,9 @@ const registroSchema = new mongoose.Schema(
   }
 );
 
+/**
+ * Model de comentarios da aplicacao.
+ *
+ * @type {mongoose.Model}
+ */
 module.exports = mongoose.model('Comentario', registroSchema);

@@ -6,6 +6,17 @@ const User = require('../models/userModel');
   Intercepta a requisição, extrai e valida o token antes de liberar
   o acesso às rotas protegidas.
 */
+/**
+ * Verifica o token JWT enviado no header Authorization.
+ *
+ * Quando o token e valido, busca o usuario correspondente e o disponibiliza
+ * em req.user para os proximos middlewares e controllers da rota.
+ *
+ * @param {import('express').Request & { user?: import('mongoose').Document }} req - Requisicao HTTP com header Authorization.
+ * @param {import('express').Response} res - Resposta HTTP usada em falhas de autenticacao.
+ * @param {import('express').NextFunction} next - Callback que libera a proxima etapa da rota.
+ * @returns {Promise<void>}
+ */
 exports.verificarToken = async (req, res, next) => {
   try {
     let tokenRecebido;

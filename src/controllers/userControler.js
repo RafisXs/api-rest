@@ -11,11 +11,24 @@ const jwt = require('jsonwebtoken');
     2º - Segredo: chave de assinatura definida no arquivo .env
     3º - Opções: tempo de expiração ('1d' = 1 dia)
 */
+/**
+ * Gera um token JWT para o usuario informado.
+ *
+ * @param {string|import('mongoose').Types.ObjectId} id - Identificador do usuario que sera gravado no payload.
+ * @returns {string} Token JWT assinado com expiracao de 1 dia.
+ */
 const gerarToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 };
 
 /* Cadastra um novo usuário e retorna um token de acesso imediatamente */
+/**
+ * Cadastra um novo usuario e retorna token de acesso.
+ *
+ * @param {import('express').Request} req - Requisicao com username, email, password e bio no corpo.
+ * @param {import('express').Response} res - Resposta HTTP com usuario criado e token JWT.
+ * @returns {Promise<void>}
+ */
 exports.cadastro = async (req, res) => {
   try {
     const { username, email, password, bio } = req.body;
@@ -42,6 +55,13 @@ exports.cadastro = async (req, res) => {
 };
 
 /* Autentica o usuário com e-mail e senha, retornando um token JWT em caso de sucesso */
+/**
+ * Autentica usuario por e-mail e senha.
+ *
+ * @param {import('express').Request} req - Requisicao com email e password no corpo.
+ * @param {import('express').Response} res - Resposta HTTP com token JWT e dados do usuario autenticado.
+ * @returns {Promise<void>}
+ */
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -80,6 +100,13 @@ exports.login = async (req, res) => {
 };
 
 /* Lista todos os usuários cadastrados na coleção */
+/**
+ * Lista todos os usuarios cadastrados.
+ *
+ * @param {import('express').Request} req - Requisicao HTTP recebida pela rota.
+ * @param {import('express').Response} res - Resposta HTTP com a lista de usuarios.
+ * @returns {Promise<void>}
+ */
 exports.listarUsuarios = async (req, res) => {
   try {
     /* .find() sem filtros retorna todos os documentos da coleção */
@@ -103,6 +130,15 @@ exports.listarUsuarios = async (req, res) => {
   Antes de remover o usuário, apaga todos os comentários de sua autoria
   para evitar registros órfãos no banco de dados.
 */
+/**
+ * Encerra a conta do usuario autenticado.
+ *
+ * Remove tambem os comentarios associados ao usuario para evitar registros orfaos.
+ *
+ * @param {import('express').Request & { user: import('mongoose').Document }} req - Requisicao com usuario autenticado em req.user.
+ * @param {import('express').Response} res - Resposta HTTP com resultado da remocao.
+ * @returns {Promise<void>}
+ */
 exports.encerrarConta = async (req, res) => {
   try {
     const idAtual = req.user._id;
@@ -124,6 +160,13 @@ exports.encerrarConta = async (req, res) => {
 };
 
 /* Permite que o usuário autenticado troque sua senha atual por uma nova */
+/**
+ * Troca a senha do usuario autenticado.
+ *
+ * @param {import('express').Request & { user: import('mongoose').Document }} req - Requisicao com senhaAtual e novaSenha no corpo.
+ * @param {import('express').Response} res - Resposta HTTP com status da atualizacao.
+ * @returns {Promise<void>}
+ */
 exports.trocarSenha = async (req, res) => {
   try {
     const { senhaAtual, novaSenha } = req.body;
@@ -159,6 +202,13 @@ exports.trocarSenha = async (req, res) => {
 };
 
 /* Atualiza os dados do perfil do usuário (username, email e/ou bio) */
+/**
+ * Atualiza dados do perfil do usuario autenticado.
+ *
+ * @param {import('express').Request & { user: import('mongoose').Document }} req - Requisicao com username, email e/ou bio no corpo.
+ * @param {import('express').Response} res - Resposta HTTP com perfil atualizado.
+ * @returns {Promise<void>}
+ */
 exports.editarPerfil = async (req, res) => {
   try {
     const { username, email, bio } = req.body;
