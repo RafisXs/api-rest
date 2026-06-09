@@ -1,165 +1,245 @@
-Esta é uma API REST completa e segura desenvolvida em Node.js, focada no gerenciamento de usuários e publicações de comentários.
-O sistema conta com autenticação por Tokens (JWT), criptografia de senhas, validação de dados e relacionamento entre coleções no banco de dados.
-Este projeto foi construído utilizando as seguintes ferramentas e bibliotecas:
- - Node.js & Express.js: Base da aplicação e gerenciamento de rotas.
- - MongoDB & Mongoose: Banco de dados NoSQL e modelagem de dados (Schemas, Models, Hooks de pre-save).
- - Bcrypt.js: Criptografia unidirecional de senhas para segurança do usuário.
- - JSON Web Token (JWT): Geração e verificação de tokens para sessões de usuários.
- - Dotenv: Gerenciamento de variáveis de ambiente.
- - Git: Versionamento de código.
- - Talend API Tester: Ferramentas utilizadas para teste e validação das rotas durante o desenvolvimento.
+# API REST de Usuários e Comentários
 
-Funcionalidades Principais:
- - Arquitetura Modular: Separação clara de responsabilidades (Controllers, Models, Rotas e Middlewares).
- - Autenticação e Autorização: Middlewares que garantem que apenas usuários logados acessem certas rotas e que apenas os donos dos comentários possam editá-los ou excluí-los.
- - CRUD de Usuários: Atualização de perfil, troca segura de senha (com re-autenticação) e exclusão de conta.
- - CRUD de Comentários: Criação, listagem limpa (sem exposição de versão __v), edição e exclusão.
- - Integridade Referencial (Exclusão em Cascata): Se um usuário deleta sua conta, todos os seus comentários são automaticamente removidos do banco.
- 
- Estrutura do Projeto:
- O código está organizado seguindo as melhores práticas para facilitar a manutenção e escalabilidade:
- - .env para variáveis de ambiente (não vai para o GitHub)
- - .gitignore para arquivos ignorados pelo Git
- - package.json para dependências do projeto
- - app.js - ponto de entrada (Configuração do Express e montagem das rotas)
- - src:
+![Node.js](https://img.shields.io/badge/Node.js-CommonJS-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-5.x-000000?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![JWT](https://img.shields.io/badge/Auth-JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
 
+API REST desenvolvida em Node.js para cadastro de usuários, autenticação com JWT e gerenciamento de comentários.
+O projeto usa Express, MongoDB com Mongoose, criptografia de senhas com Bcrypt e uma estrutura modular com rotas, controllers, models e middlewares.
 
-│   - controllers/ - Lógica de negócio (userController.js, comentarioController.js)
+## Stack Tecnológica
 
+- **Node.js**: ambiente de execução JavaScript no backend.
+- **Express.js**: framework para criação da API e gerenciamento das rotas.
+- **MongoDB**: banco de dados NoSQL utilizado para armazenar usuários e comentários.
+- **Mongoose**: ODM para modelagem, validação e interação com o MongoDB.
+- **Bcrypt.js**: criptografia de senhas antes de salvar no banco.
+- **JSON Web Token (JWT)**: autenticação por token nas rotas protegidas.
+- **Dotenv**: carregamento de variáveis de ambiente.
 
-│   - middlewares/ - Funções de interceptação (autenticacaoMiddleware.js)
+## Funcionalidades
 
+- Cadastro de usuários com validação de username, e-mail e senha.
+- Login com geração de token JWT válido por 1 dia.
+- Listagem pública de usuários cadastrados.
+- Atualização de perfil do usuário autenticado.
+- Troca de senha com validação da senha atual.
+- Encerramento de conta com remoção em cascata dos comentários do usuário.
+- Criação de comentários vinculados ao usuário autenticado.
+- Listagem pública de comentários.
+- Edição e remoção de comentários somente pelo próprio autor.
+- Ocultação da senha nas consultas e respostas da API.
 
-│   - models/ - Schemas do banco de dados (userModel.js, comentarioModel.js)
+## Demonstração Visual
 
+Esta API não possui interface gráfica própria. Para testar visualmente as requisições, use ferramentas como:
 
-│   - routes/ - Definição dos Endpoints (userRoutes.js, comentarioRoutes.js)
+- Talend API Tester
+- Insomnia
+- Postman
+- Thunder Client
 
-Passo a Passo de como Rodar a Aplicação:
-1. Pré-requisitosCertifique-se de ter instalado em sua máquina:
- - Node.js (Versão LTS recomendada)
- - Git
- - Uma conta no MongoDB e MongoCompass
-2. Clonando o Repositório e Versionamento
-Este projeto utiliza Git para versionamento de código. Para baixar e inicializar
+Após iniciar o servidor, a API ficará disponível em:
 
-3. Instalando as Dependências
- - Execute o comando abaixo para baixar as pastas node_modules:
- npm install
-4. Configurando as Variáveis de Ambiente (.env)
-Na raiz do projeto, crie um arquivo chamado .env e adicione as seguintes variáveis:
- - PORT=3000
- - MONGODB_URI=mongodb://localhost:27017/API-REST
- - JWT_SECRET=senha_secreta123@
+```txt
+http://localhost:3000
+```
 
-5. Iniciando o Servidor para rodar a aplicação em ambiente de desenvolvimento:
+## Estrutura do Projeto
+
+```txt
+api-rest/
+|-- app.js
+|-- package.json
+|-- README.md
+`-- src/
+    |-- controllers/
+    |   |-- comentarioController.js
+    |   `-- userControler.js
+    |-- middlewares/
+    |   `-- autenticacaoMiddleware.js
+    |-- models/
+    |   |-- comentarioModel.js
+    |   `-- userModel.js
+    `-- routes/
+        |-- comentarioRoutes.js
+        `-- userRoutes.js
+```
+
+## Pré-requisitos
+
+Antes de executar o projeto, instale:
+
+- Node.js em versão LTS
+- npm
+- Git
+- MongoDB local ou uma conta no MongoDB Atlas
+- MongoDB Compass, opcional, para visualizar os dados
+
+## Como Rodar Localmente
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/RafisXs/api-rest.git
+```
+
+Acesse a pasta do projeto:
+
+```bash
+cd api-rest
+```
+
+Instale as dependências:
+
+```bash
+npm install
+```
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```bash
+PORT=3000
+MONGODB_URI=mongodb://127.0.0.1:27017/api-rest
+JWT_SECRET=sua_chave_secreta_aqui
+```
+
+Inicie o servidor:
+
+```bash
 node app.js
+```
 
-Você verá a mensagem: Servidor rodando na porta 3000! e a confirmação de conexão com o banco de dados.
+Se tudo estiver configurado corretamente, o terminal exibirá mensagens indicando que o servidor iniciou e que a conexão com o MongoDB foi realizada.
 
-6. Rotas para teste de funcionalidades
-No talend, faça as seguintes coisas para ter a experiência de usuário completa:
+## Variáveis de Ambiente
 
-Passo 1: Cadastro de Usuário
-Comece criando seu primeiro usuário. É recomendado criar pelo menos dois usuários para testar as travas de segurança de edição de comentários alheios.
- - Método: POST
- - URL: http://localhost:3000/api/users/cadastro
+| Variável | Obrigatória | Descrição |
+| --- | --- | --- |
+| `PORT` | Não | Porta em que a API será executada. Caso não seja informada, usa `3000`. |
+| `MONGODB_URI` | Sim | String de conexão com o MongoDB local ou MongoDB Atlas. |
+| `JWT_SECRET` | Sim | Chave secreta usada para assinar e validar os tokens JWT. |
 
-Body (JSON):
+> Nunca envie o arquivo `.env` para o GitHub. Use valores próprios no ambiente local e mantenha segredos fora do versionamento.
 
+## Autenticação
+
+As rotas protegidas exigem o envio do token JWT no header `Authorization`:
+
+```txt
+Authorization: Bearer SEU_TOKEN_AQUI
+```
+
+O token é retornado nas respostas das rotas de cadastro e login.
+
+## Rotas da API
+
+### Usuários
+
+| Método | Rota | Protegida | Descrição |
+| --- | --- | --- | --- |
+| `POST` | `/api/users/cadastro` | Não | Cadastra um novo usuário. |
+| `POST` | `/api/users/login` | Não | Autentica um usuário e retorna um token JWT. |
+| `GET` | `/api/users/listar` | Não | Lista todos os usuários cadastrados. |
+| `PATCH` | `/api/users/editar-perfil` | Sim | Atualiza username, e-mail e/ou bio do usuário autenticado. |
+| `PATCH` | `/api/users/trocar-senha` | Sim | Troca a senha do usuário autenticado. |
+| `DELETE` | `/api/users/encerrar-conta` | Sim | Remove a conta do usuário autenticado e seus comentários. |
+
+### Comentários
+
+| Método | Rota | Protegida | Descrição |
+| --- | --- | --- | --- |
+| `POST` | `/api/comentarios/novo` | Sim | Cria um novo comentário. |
+| `GET` | `/api/comentarios/listar` | Não | Lista todos os comentários. |
+| `PATCH` | `/api/comentarios/atualizar/:id` | Sim | Atualiza um comentário do próprio autor. |
+| `DELETE` | `/api/comentarios/remover/:id` | Sim | Remove um comentário do próprio autor. |
+
+## Exemplos de Requisição
+
+### Cadastrar usuário
+
+```http
+POST /api/users/cadastro
+Content-Type: application/json
+```
+
+```json
 {
-  "username": "seu_nome",
-  "email": "exemplo@endereco.com",
-  "password": "senha_segura",
-  "bio": "Bio"
+  "username": "rafael",
+  "email": "rafael@email.com",
+  "password": "senha123",
+  "bio": "Desenvolvedor backend"
 }
+```
 
+### Fazer login
 
-(Se quiser criar outra conta para ter melhor visão das próximas features, é recomendado)
+```http
+POST /api/users/login
+Content-Type: application/json
+```
 
-
-Passo 2: Login e Autenticação
-Faça login para gerar seu token de acesso. Sem ele, você não conseguirá acessar as rotas protegidas.
- - Método: POST
- - URL: http://localhost:3000/api/users/login
-
-Body (JSON):
-
+```json
 {
-  "email": "exemplo@endereco.com",
-  "password": "senha_segura"
+  "email": "rafael@email.com",
+  "password": "senha123"
 }
+```
 
+### Criar comentário
 
-IMPORTANTE: Copie o token gerado na resposta. No Talend, em todas as rotas abaixo, vá na aba Headers, adicione "Authorization" no nome e "Bearer (valor do TOKEN)" no valor.
+```http
+POST /api/comentarios/novo
+Authorization: Bearer SEU_TOKEN_AQUI
+Content-Type: application/json
+```
 
-
-Passo 3: Mostrar todos os Usuários
-Veja a lista de todos os usuários cadastrados no sistema.
- - Método: GET
- - URL: http://localhost:3000/api/users/mostrar
-
-
-Passo 4: Criar um Comentário
-Agora que está autenticado, publique algo no sistema.
- - Método: POST
- - URL: http://localhost:3000/api/comentarios/criar
-
-Body (JSON):
-
+```json
 {
-  "titulo": "Titulo 1",
-  "conteudo": "Primeiro comentário"
+  "titulo": "Primeiro comentário",
+  "conteudo": "Este é o conteúdo do comentário."
 }
+```
 
+### Editar perfil
 
-Passo 5: Mostrar todos os Comentários
-Visualize todos os comentários publicados por todos os usuários.
- - Método: GET
- - URL: http://localhost:3000/api/comentarios/mostrar
+```http
+PATCH /api/users/editar-perfil
+Authorization: Bearer SEU_TOKEN_AQUI
+Content-Type: application/json
+```
 
-
-Passo 6: Editar seu Comentário
-Atualize o título ou conteúdo de um comentário criado por você.
- - Método: PATCH
- - URL: http://localhost:3000/api/comentarios/editar/ID_DO_COMENTARIO
-
-Body (JSON):
-
+```json
 {
-  "titulo": "Titulo Atualizado",
-  "conteudo": "Conteúdo modificado"
+  "username": "rafael.dev",
+  "email": "rafael.dev@email.com",
+  "bio": "Backend com Node.js e MongoDB"
 }
+```
 
+### Trocar senha
 
-Passo 7: Atualizar Perfil e Senha
-Gerencie seus dados de conta.
-Perfil: PATCH em http://localhost:3000/api/users/atualizar-perfil 
+```http
+PATCH /api/users/trocar-senha
+Authorization: Bearer SEU_TOKEN_AQUI
+Content-Type: application/json
+```
 
-Body: 
-
+```json
 {
- "username": "",
- "email": "",
- "bio": ""
- }
+  "senhaAtual": "senha123",
+  "novaSenha": "novaSenha123"
+}
+```
 
-Senha: PATCH em http://localhost:3000/api/users/atualizar-senha 
+## Observações
 
-Body: 
+- O campo `password` possui `select: false` no model de usuário, evitando exposição acidental da senha.
+- A senha é criptografada automaticamente antes de ser salva.
+- Ao encerrar uma conta, todos os comentários vinculados ao usuário também são removidos.
+- Apenas o autor de um comentário pode editá-lo ou removê-lo.
 
-{
- "senhaAtual": "",
- "novaSenha": ""
- }
+## Autor
 
-
-Passo 8: Exclusão (Cascata)
-Teste a remoção de dados.
-
-Deletar Comentário: DELETE em http://localhost:3000/api/comentarios/deletar/ID_DO_COMENTARIO
-
-Deletar Conta: DELETE em http://localhost:3000/api/users/deletar-conta 
-
-(Isso removerá automaticamente todos os comentários do usuário).
+Projeto desenvolvido por [RafisXs](https://github.com/RafisXs).
