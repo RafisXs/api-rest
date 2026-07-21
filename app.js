@@ -6,6 +6,14 @@ const comentarioRoutes = require('./src/routes/comentarioRoutes');
 
 const app = express();
 
+/* Define uma URI padrão caso não exista arquivo .env configurado */
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/api-rest';
+
+/* Aviso caso JWT_SECRET não esteja configurado — importante para rotas autenticadas */
+if (!process.env.JWT_SECRET) {
+  console.warn('⚠ Aviso: variável JWT_SECRET não definida. Rotas autenticadas podem falhar.');
+}
+
 /*
   Habilita o parsing de JSON no corpo das requisições.
   Sem isso, req.body chegaria como undefined nos controllers.
@@ -25,10 +33,11 @@ app.use(express.json());
 */
 const iniciarConexao = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(MONGODB_URI);
     console.log('✔ Conectado ao banco de dados MongoDB com sucesso');
   } catch (err) {
     console.error('✘ Falha ao conectar com o banco de dados:', err.message);
+    console.error('   Verifique se o MongoDB está em execução e se a URI está correta.');
     process.exit(1); /* Encerra o processo caso o banco não esteja disponível */
   }
 };
